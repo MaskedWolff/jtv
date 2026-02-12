@@ -1,57 +1,67 @@
-- name: Generate ztv.m3u
+name: ZTV
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/10 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Generate ztv.m3u
         run: |
           set -e
-          URL="https://ztv.pfy.workers.dev"
-
-          echo "Downloading JSON..."
-          curl -L "$URL" -o data.json
+          curl -L "https://ztv.pfy.workers.dev" -o data.json
 
           if [ ! -s data.json ]; then
-            echo "JSON download failed"
+            echo "Download failed"
             exit 1
           fi
 
           echo "#EXTM3U" > ztv.m3u
 
           jq -r '
-            def normalize:
-              if type=="array" then .
-              elif type=="object" then
-                if has("channels") then .channels
-                elif has("data") then .data
-                elif has("list") then .list
-                else [.[]]
-                end
-              else [] end;
-
-            normalize[]
+            .[]?
             | select(type=="object")
-            | (.name // .title // "Unknown") as $name
+            | (.name // "Unknown") as $n
             | (.logo // "") as $logo
-            | (.id // "") as $id
-            | (.url // .link // .mpd // "") as $url
-            | (.drmScheme // "") as $drm
+            | (.link // .url // .mpd // "") as $url
             | (.drmLicense // "") as $lic
             | (.cookie // "") as $cookie
             | select($url != "")
 
-            |
-            "#EXTINF:-1 " +
-            (if $id!="" then "tvg-id=\"" + $id + "\" " else "" end) +
-            (if $logo!="" then "tvg-logo=\"" + $logo + "\" " else "" end) +
-            "," + ($name | gsub(",";"\\,")),
+            ,
+            "#EXTINF:-1" +
+            (if $logo != "" then " tvg-logo=\"" + $logo + "\"" else "" end) +
+            "," + $n,
 
-            (if ($drm=="clearkey" and ($lic|contains(":")))
+            (if ($lic|contains(":"))
               then "#KODIPROP:inputstream.adaptive.license_type=clearkey",
                    "#KODIPROP:inputstream.adaptive.license_key=" + $lic
               else empty end),
 
-            (if $cookie!=""
-              then "#EXTHTTP:{\"cookie\":\"" + ($cookie|gsub("\"";"\\\"")) + "\"}"
+            (if $cookie != ""
+              then "#EXTHTTP:{\"cookie\":\"" + $cookie + "\"}"
               else empty end),
 
             $url
           ' data.json >> ztv.m3u
 
-          echo "Clean playlist lines:"
-          wc -l ztv.m3u
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ztv.m3u
+          git diff --cached --quiet && exit 0
+          git commit -m "update ztv.m3u"
+          git push
