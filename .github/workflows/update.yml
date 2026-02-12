@@ -1,25 +1,4 @@
-name: ZTV Auto Update
-
-on:
-  workflow_dispatch:
-  schedule:
-    - cron: "*/10 * * * *"
-
-permissions:
-  contents: write
-
-jobs:
-  update:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install jq
-        run: sudo apt-get update && sudo apt-get install -y jq
-
-      - name: Generate ztv.m3u
+- name: Generate ztv.m3u
         run: |
           set -e
           URL="https://ztv.pfy.workers.dev"
@@ -46,6 +25,7 @@ jobs:
               else [] end;
 
             normalize[]
+            | select(type=="object")
             | (.name // .title // "Unknown") as $name
             | (.logo // "") as $logo
             | (.id // "") as $id
@@ -55,11 +35,11 @@ jobs:
             | (.cookie // "") as $cookie
             | select($url != "")
 
-            ,
+            |
             "#EXTINF:-1 " +
             (if $id!="" then "tvg-id=\"" + $id + "\" " else "" end) +
             (if $logo!="" then "tvg-logo=\"" + $logo + "\" " else "" end) +
-            "," + ($name|gsub(",";"\\,")),
+            "," + ($name | gsub(",";"\\,")),
 
             (if ($drm=="clearkey" and ($lic|contains(":")))
               then "#KODIPROP:inputstream.adaptive.license_type=clearkey",
@@ -73,16 +53,5 @@ jobs:
             $url
           ' data.json >> ztv.m3u
 
-          echo "Playlist created:"
+          echo "Clean playlist lines:"
           wc -l ztv.m3u
-
-      - name: Commit
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add ztv.m3u
-          git diff --cached --quiet && exit 0
-
-          git commit -m "Auto update ztv.m3u"
-          git push
