@@ -3,7 +3,7 @@ name: Merge IPTV
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/10 * * * *"
+    - cron: "0 */6 * * *"   # har 6 ghante (safe)
 
 permissions:
   contents: write
@@ -15,59 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      # -------- ZTV generate --------
-      - name: Generate ztv.m3u
+      # -------- Download Hotstar M3U --------
+      - name: Download ztv.m3u
         run: |
-          node <<'EOF'
-          const fs = require("fs");
-          const https = require("https");
-
-          https.get("https://livetv-cb7.pages.dev/hotstar", res => {
-            let data = "";
-            res.on("data", c => data += c);
-            res.on("end", () => {
-              let json;
-              try { json = JSON.parse(data); }
-              catch { process.exit(1); }
-
-              const list = Array.isArray(json)
-                ? json
-                : json.channels || json.data || json.list || Object.values(json);
-
-              let out = "#EXTM3U\n";
-
-              for (const ch of list) {
-                const name = ch.name || "Unknown";
-                const logo = ch.logo || "";
-                const url  = ch.link || ch.url || ch.mpd || "";
-                const lic  = ch.drmLicense || "";
-                const cookie = ch.cookie || "";
-
-                if (!url) continue;
-
-                out += `#EXTINF:-1${logo ? ` tvg-logo="${logo}"` : ""},${name}\n`;
-
-                if (lic.includes(":")) {
-                  out += "#KODIPROP:inputstream.adaptive.license_type=clearkey\n";
-                  out += `#KODIPROP:inputstream.adaptive.license_key=${lic}\n`;
-                }
-
-                if (cookie) {
-                  out += `#EXTHTTP:{"cookie":"${cookie}"}\n`;
-                }
-
-                out += url + "\n";
-              }
-
-              fs.writeFileSync("ztv.m3u", out);
-            });
-          }).on("error", () => process.exit(1));
-          EOF
+          curl -L "https://livetv-cb7.pages.dev/hotstar" -o ztv.m3u
 
       # -------- Download Sony playlist --------
       - name: Download sony.m3u
