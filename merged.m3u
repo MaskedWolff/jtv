@@ -7721,7 +7721,8 @@ https://dishmt.slivcdn.com/hls/live/2011748/PIXHD/master.m3u8?hdnea=exp=17710484
 https://dishmt.slivcdn.com/hls/live/2011740/SonyMarathi/master.m3u8?hdnea=exp=1771048475~acl=/*~id=70951720397424264504719442749220~hmac=b2b63c0c037d5864bab919f39aabb40c95109fca78fe6438054f498f3f7ddead
 
 #EXTINF:-1 tvg-id="sony-aath" tvg-name="Sony Aath" tvg-language="Bengali" tvg-logo="https://i.postimg.cc/bY12WVTm/SONY-AATH.png" group-title="Entertainment",Sony Aath
-https://dishmt.slivcdn.com/hls/live/2011641/SonyAathSD/master.m3u8?hdnea=exp=1771048475~acl=/*~id=70951720397424264504719442749220~hmac=b2b63c0c037d5864bab919f39aabb40c95109fca78fe6438054f498f3f7ddead#EXTINF:-1 tvg-logo="https://origin-staticv2.sonyliv.com/videoasset_images/manage_file/1000014909/1770322663392886_ABBFIAFormulaE_WC26_Round4_JeddahEPrix_final_Race_6feb_landscape_thumb.jpg" group-title="sonyliv-Racing", Round 4 - Jeddah E-Prix - Final Race - 13 Feb 2026 [ENG] - ABB FIA Formula E World Championship
+https://dishmt.slivcdn.com/hls/live/2011641/SonyAathSD/master.m3u8?hdnea=exp=1771048475~acl=/*~id=70951720397424264504719442749220~hmac=b2b63c0c037d5864bab919f39aabb40c95109fca78fe6438054f498f3f7ddead
+#EXTINF:-1 tvg-logo="https://origin-staticv2.sonyliv.com/videoasset_images/manage_file/1000014909/1770322663392886_ABBFIAFormulaE_WC26_Round4_JeddahEPrix_final_Race_6feb_landscape_thumb.jpg" group-title="sonyliv-Racing", Round 4 - Jeddah E-Prix - Final Race - 13 Feb 2026 [ENG] - ABB FIA Formula E World Championship
 https://sonydaimenew.akamaized.net/hls/live/2022322/DAI18ME-V3/std_lrh-800300010.m3u8?hdnea=exp=1771049686~acl=/*~id=35043078736939237530533812566782~hmac=9ccec3fdab332f0eb8eb6430b2a5b2488a21bdcdec8f38c3f827bc73b6b41397
 
 #EXTINF:-1, tvg-logo="https://www.fancode.com/skillup-uploads/cms-media/Al-Ittihad-vs-Al-Fayha-FC_fc-web.jpg" group-title="Fancode-Football", Al-Ittihad vs Al-Fayha FC (Roshn Saudi League 2025-2026)
