@@ -24,22 +24,38 @@ jobs:
           curl -sL "${{ secrets.SRC4 }}" -o 4.m3u
 
       # -------- Merge raw --------
-      - name: Merge raw
+      - name: Merge raw playlists
         run: |
           echo "#EXTM3U" > all.m3u
           for f in 1.m3u 2.m3u 3.m3u 4.m3u; do
             sed '1{/^#EXTM3U/d}; s/\r$//; /^$/d' "$f" >> all.m3u
           done
 
-      # -------- Build Tivimate-only (non-DRM HLS) --------
+      # -------- Remove duplicate clearkey lines --------
+      - name: Clean duplicate clearkey tags
+        run: |
+          awk '
+          {
+            if ($0 == "#KODIPROP:inputstream.adaptive.license_type=clearkey") {
+              if (prev == $0) next
+            }
+            print
+            prev = $0
+          }
+          ' all.m3u > cleaned.m3u
+          mv cleaned.m3u all.m3u
+
+      # -------- Build Tivimate-only playlist --------
       - name: Build tivimate.m3u
         run: |
           echo "#EXTM3U" > tivimate.m3u
           awk '
           /#EXTINF/ {info=$0; getline url}
-          url ~ /\.m3u8/ && info !~ /KODIPROP|license|cookie/ {
-            print info
-            print url
+          {
+            if (url ~ /\.m3u8/ || url ~ /\.mpd/) {
+              print info
+              print url
+            }
           }' all.m3u >> tivimate.m3u
 
       # -------- Build OTT full playlist --------
@@ -48,11 +64,11 @@ jobs:
           cp all.m3u ott.m3u
 
       # -------- Commit only if changed --------
-      - name: Commit
+      - name: Commit playlists
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add tivimate.m3u ott.m3u
           git diff --cached --quiet && exit 0
-          git commit -m "Auto update dual IPTV playlists"
+          git commit -m "Auto update dual IPTV playlists (clearkey duplicate fixed)"
           git push
