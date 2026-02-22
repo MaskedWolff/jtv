@@ -8757,8 +8757,12 @@ https://dishmt.slivcdn.com/hls/live/2011748/PIXHD/master.m3u8?hdnea=exp=17717772
 #EXTINF:-1 tvg-id="sony-marathi" tvg-name="Sony Marathi" tvg-language="Marathi" tvg-logo="https://i.postimg.cc/ZqvcSG5j/SONY-MARATHI.png" group-title="Entertainment",Sony Marathii
 https://dishmt.slivcdn.com/hls/live/2011740/SonyMarathi/master.m3u8?hdnea=exp=1771777259~acl=/*~id=04209317291955676047252300689931~hmac=7e24c3c2cb3f10c242e0c13904d28e82ebab90a042d1221b1cbca6ff0effb9af
 #EXTINF:-1 tvg-id="sony-aath" tvg-name="Sony Aath" tvg-language="Bengali" tvg-logo="https://i.postimg.cc/bY12WVTm/SONY-AATH.png" group-title="Entertainment",Sony Aath
-https://dishmt.slivcdn.com/hls/live/2011641/SonyAathSD/master.m3u8?hdnea=exp=1771777259~acl=/*~id=04209317291955676047252300689931~hmac=7e24c3c2cb3f10c242e0c13904d28e82ebab90a042d1221b1cbca6ff0effb9af#EXTINF:-1, tvg-logo=" https://www.fancode.com/skillup-uploads/cms-media/Women's-National-Cricket-League_old_v3_1758034980120.jpg" group-title="Fancode-Cricket", ACT Meteors vs South Australian Scorpions (Women's National Cricket League, 2025-26)
-https://in-mc-fdlive.fancode.com/mumbai/133982_english_hls_0a41ee57bc36345_1ta-di_h264/index.m3u8
-#EXTINF:-1, tvg-logo="https://www.fancode.com/skillup-uploads/cms-media/WPL_web.jpg" group-title="Fancode-Cricket", Lantau Cricket Club Women vs Kowloon Cricket Club Women (Women's Premier League T20 2026)
-https://in-mc-fdlive.fancode.com/mumbai/140609_english_hls_4792f54d6b70969_1ta-di_h264/index.m3u8
+https://dishmt.slivcdn.com/hls/live/2011641/SonyAathSD/master.m3u8?hdnea=exp=1771777259~acl=/*~id=04209317291955676047252300689931~hmac=7e24c3c2cb3f10c242e0c13904d28e82ebab90a042d1221b1cbca6ff0effb9af#EXTINF:-1 tvg-logo="https://origin-staticv2.sonyliv.com/videoasset_images/manage_file/1000015364/1771401550988586_DP_World_Tour_Magical_Kenya_Open_Day4_landscape_thumb.jpg" group-title="sonyliv-Golf", Magical Kenya Open - Day 4 - 22 Feb 2026 [ENG] - DP World Tour
+https://sonydaimenew.akamaized.net/hls/live/2094587/DAI03ME-V3/std_lrh-800300010.m3u8?hdnea=exp=1771783313~acl=/*~id=35574888283147014334910433439560~hmac=916e8b32d7902ac3915454eb02ec9323dfb5aabdaad7a2d48878f223a834c178
+#EXTINF:-1, tvg-logo="https://www.fancode.com/skillup-uploads/cms-media/_Premier-League-T20-2026-2nd-old-card-.jpg" group-title="Fancode-Cricket", Diasqua Little Sai Wan Cricket Club vs Hong Kong Cricket Club (Premier League T20 2026)
+https://in-mc-fdlive.fancode.com/mumbai/140617_english_hls_2b20126b8847793_1ta-di_h264/index.m3u8
+#EXTINF:-1, tvg-logo="https://www.fancode.com/skillup-uploads/cms-media/Premier-League-T20-2026-old-match-card.jpg" group-title="Fancode-Cricket", United Services Recreation Club vs Kowloon Cricket Club (Premier League T20 2026)
+https://in-mc-fdlive.fancode.com/mumbai/140616_english_hls_49dc98e7af12694_1ta-di_h264/index.m3u8
+#EXTINF:-1, tvg-logo="https://www.fancode.com/skillup-uploads/cms-media/139416_5802_CCM_SYW_1770723544582.png" group-title="Fancode-Football", Central Coast Mariners vs Western Sydney Wanderers (A League 2025-26)
+https://in-mc-fdlive.fancode.com/mumbai/139416_english_hls_f2e88d4f8d88432_1ta-di_h264/index.m3u8
 404: Not Found
